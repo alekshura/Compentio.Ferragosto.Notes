@@ -16,14 +16,14 @@ namespace Compentio.Ferragosto.Tests.Notes
     public class NotesApiIntegrationTests : IClassFixture<WebApplicationFactory<Api.Startup>>
     {
         private readonly WebApplicationFactory<Api.Startup> _factory;
-        private readonly NotesServiceMock _notesServiceMock;
+        private readonly NotesRepositoryMock _notesRepositoryMock;
 
         private const string notesBaseUrl = "api/notes";
 
         public NotesApiIntegrationTests(WebApplicationFactory<Api.Startup> factory)
         {
             _factory = factory;
-            _notesServiceMock = new();
+            _notesRepositoryMock = new();
         }
 
 
@@ -32,11 +32,11 @@ namespace Compentio.Ferragosto.Tests.Notes
         {
             // Arrange
             var httpClient = _factory.WithAuthentication()
-                      .WithService(_ => _notesServiceMock.Object)
+                      .WithService(_ => _notesRepositoryMock.Object)
                       .CreateAndConfigureClient();
 
             var mockedNotes = NotesMocks.Notes;
-            _notesServiceMock.MockGetNotes(mockedNotes);
+            _notesRepositoryMock.MockGetNotes(mockedNotes);
 
             // Act
             var response = await httpClient.GetAsync(notesBaseUrl).ConfigureAwait(false);
@@ -52,7 +52,7 @@ namespace Compentio.Ferragosto.Tests.Notes
         public async Task ShouldBeUnauthorized()
         {
             // Arrange
-            var httpClient = _factory.WithService(_ => _notesServiceMock.Object)
+            var httpClient = _factory.WithService(_ => _notesRepositoryMock.Object)
                       .CreateAndConfigureClient();
 
 
@@ -61,7 +61,7 @@ namespace Compentio.Ferragosto.Tests.Notes
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-            _notesServiceMock.Verify(notes => notes.GetNotes(), Times.Never());
+            _notesRepositoryMock.Verify(notes => notes.GetNotes(), Times.Never());
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace Compentio.Ferragosto.Tests.Notes
         {
             // Arrange
             var httpClient = _factory.WithAuthenticationWithoutClaims()
-                      .WithService(_ => _notesServiceMock.Object)
+                      .WithService(_ => _notesRepositoryMock.Object)
                       .CreateAndConfigureClient();
 
 
@@ -79,7 +79,7 @@ namespace Compentio.Ferragosto.Tests.Notes
             // Assert
             await getNotesTask.Should().ThrowAsync<System.Net.Http.HttpRequestException>();
 
-            _notesServiceMock.Verify(notes => notes.GetNotes(), Times.Never());
+            _notesRepositoryMock.Verify(notes => notes.GetNotes(), Times.Never());
         }
     }
 }

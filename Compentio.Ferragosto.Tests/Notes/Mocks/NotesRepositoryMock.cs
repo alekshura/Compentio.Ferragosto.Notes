@@ -3,6 +3,7 @@
     using Moq;
     using Compentio.Ferragosto.Notes;
     using System.Collections.Generic;
+    using System;
 
     public class NotesRepositoryMock : Mock<INotesRepository>
     {
@@ -12,9 +13,21 @@
             return this;
         }
 
-        public NotesRepositoryMock MockGetNote(long noteId, Note note)
+        public NotesRepositoryMock MockGetNote(Guid noteId, Note note)
         {
-            Setup(service => service.GetNote(It.Is<long>(i => i == noteId))).ReturnsAsync(note);
+            Setup(service => service.GetNote(It.Is<Guid>(i => i == noteId))).ReturnsAsync(note);
+            return this;
+        }
+        public NotesRepositoryMock MockAddNote(Note note)
+        {
+            note.Id = Guid.NewGuid();
+            Setup(service => service.AddNote(note)).ReturnsAsync(note);
+            return this;
+        }
+
+        public NotesRepositoryMock MockModifyNote(Note note)
+        {
+            Setup(service => service.GetNote(It.Is<Guid>(i => i == note.Id))).ReturnsAsync(note);
             return this;
         }
     }

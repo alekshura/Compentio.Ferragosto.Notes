@@ -20,7 +20,7 @@ namespace Compentio.Ferragosto.Tests.Notes
         {
             _notesRepositoryMock = new();
             _loggerMock = new();
-            _notesService = new NotesService(_loggerMock.Object, _notesRepositoryMock.Object);
+            _notesService = new NotesService(_notesRepositoryMock.Object, _loggerMock.Object);
         }
 
 
