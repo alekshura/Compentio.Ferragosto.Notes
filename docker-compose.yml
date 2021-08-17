@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  Compentio.ferragosto.api:
+    image: ${DOCKER_REGISTRY-}compentio.ferragosto.api
+    build:
+      context: .
+      dockerfile: Compentio.Ferragosto.Api/Dockerfile
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    environment:
+      - AUTH=yes
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=p@ssw0rd
+    volumes:
+      - ${MONGO_HOST_DATA}/db:/data/db
+    ports:
+      - "27017:27017"

@@ -1,0 +1,65 @@
+namespace Compentio.Ferragosto.Api
+{
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Compentio.Ferragosto.Api.Middleware;
+    using Compentio.Ferragosto.Api.Extensions;
+
+    public class Startup
+    {
+        public Startup(IConfiguration configuration, IHostEnvironment env)
+        {
+            Configuration = configuration;            
+            Environment = env;
+        }
+
+        public IConfiguration Configuration { get; }
+        private IHostEnvironment Environment { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddApplicationInsightsTelemetry();
+            
+            services.AddAppProblemDetails(Environment);
+
+            services.AddAuthentication(Configuration);
+
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            
+            services.AddSwagger(Configuration);
+            
+            services.AddServices();
+            
+            services.AddRepositories();
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (!env.IsDevelopment())
+            {
+                app.UseHttpHeaders();
+            }
+
+            app.UseAppExceptionHandler(env);
+
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.UseAppSwaggerUI(Configuration);          
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
+            });
+        }
+    }
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Compentio.Ferragosto.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Get">
+            <summary>
+            Returns list of notes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.GetNote(System.Guid)">
+            <summary>
+            Returns note by its id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Add(Compentio.Ferragosto.Notes.Note)">
+            <summary>
+            Method adds new note
+            </summary>
+            <param name="note"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Update(System.Guid,Compentio.Ferragosto.Notes.Note)">
+            <summary>
+            Method updates the note
+            </summary>
+            <param name="id"></param>
+            <param name="note"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Delete(System.Guid)">
+            <summary>
+            Method deletes the note
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
