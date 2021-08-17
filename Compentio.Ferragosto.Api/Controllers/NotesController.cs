@@ -39,7 +39,7 @@
         /// <returns></returns>
         [HttpGet("{id}")]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<Note> GetNote(Guid id)
+        public async Task<Note> GetNote(string id)
         {
             return await _notesService.GetNote(id).ConfigureAwait(false);
         }
@@ -64,7 +64,7 @@
         /// <returns></returns>
         [HttpPut("{id}")]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
-        public async Task<ActionResult<Note>> Update(Guid id, [FromBody] Note note)
+        public async Task<ActionResult<Note>> Update(string id, [FromBody] Note note)
         {
             var noteToUpdate = await _notesService.GetNote(id).ConfigureAwait(false);
             if (noteToUpdate == null)
@@ -83,7 +83,7 @@
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(string id)
         {
             await _notesService.DeleteNote(id).ConfigureAwait(false);
             return Accepted();

@@ -3,27 +3,25 @@
     using MongoDB.Driver;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public interface INotesRepository
     {
         Task<IEnumerable<Note>> GetNotes();
-        Task<Note> GetNote(Guid noteId);
+        Task<Note> GetNote(string noteId);
         Task<Note> AddNote(Note note);
         Task<Note> UpdateNote(Note note);
-        Task DeleteNote(Guid noteId);
+        Task DeleteNote(string noteId);
     }
 
     public class NotesRepository : INotesRepository
     {       
         private readonly IMongoCollection<Note> _notes;
 
-        public NotesRepository()
+        public NotesRepository(IMongoDbOptions options)
         {
-            var mongoClient = new MongoClient("mongodb://admin:p%40ssw0rd@127.0.0.1:27017/NotesDatabase/?authSource=admin");           
-            var database = mongoClient.GetDatabase("NotesDatabase");
+            var mongoClient = new MongoClient(options.ConnectionString);           
+            var database = mongoClient.GetDatabase(options.DatabaseName);
             _notes = database.GetCollection<Note>("Notes");
         }
 
@@ -33,12 +31,12 @@
             return note;
         }
 
-        public async Task DeleteNote(Guid noteId)
+        public async Task DeleteNote(string noteId)
         {
             await _notes.DeleteOneAsync(filter => filter.Id == noteId).ConfigureAwait(false);
         }
 
-        public async Task<Note> GetNote(Guid noteId)
+        public async Task<Note> GetNote(string noteId)
         {
             return await _notes.Find(note => note.Id == noteId).FirstOrDefaultAsync();
         }

@@ -17,7 +17,7 @@
                 var titles = new[] { "Info", "Document", "Attention", "Warning" };
                 var testNotes = new Faker<Note>()
                     .StrictMode(true)
-                    .RuleFor(note => note.Id, f => f.Random.Guid())
+                    .RuleFor(note => note.Id, f => f.Random.Guid().ToString())
                     .RuleFor(note => note.DocumentId, f => f.Random.Number(1, 100))
                     .RuleFor(note => note.Title, f => f.PickRandom(titles))
                     .RuleFor(note => note.Description, f => f.Lorem.Sentences())

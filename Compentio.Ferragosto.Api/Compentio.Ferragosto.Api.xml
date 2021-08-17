@@ -10,7 +10,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.GetNote(System.Guid)">
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.GetNote(System.String)">
             <summary>
             Returns note by its id
             </summary>
@@ -24,7 +24,7 @@
             <param name="note"></param>
             <returns></returns>
         </member>
-        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Update(System.Guid,Compentio.Ferragosto.Notes.Note)">
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Update(System.String,Compentio.Ferragosto.Notes.Note)">
             <summary>
             Method updates the note
             </summary>
@@ -32,7 +32,7 @@
             <param name="note"></param>
             <returns></returns>
         </member>
-        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Delete(System.Guid)">
+        <member name="M:Compentio.Ferragosto.Api.Controllers.NotesController.Delete(System.String)">
             <summary>
             Method deletes the note
             </summary>

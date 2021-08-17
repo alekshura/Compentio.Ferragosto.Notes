@@ -21,6 +21,8 @@ namespace Compentio.Ferragosto.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddConfiguration(Configuration);
+
             services.AddApplicationInsightsTelemetry();
             
             services.AddAppProblemDetails(Environment);

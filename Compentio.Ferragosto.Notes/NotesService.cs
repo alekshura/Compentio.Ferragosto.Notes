@@ -8,10 +8,10 @@
     public interface INotesService
     {
         Task<IEnumerable<Note>> GetNotes();
-        Task<Note> GetNote(Guid noteId);
+        Task<Note> GetNote(string noteId);
         Task<Note> AddNote(Note note);
         Task<Note> UpdateNote(Note note);
-        Task DeleteNote(Guid noteId);
+        Task DeleteNote(string noteId);
     }
 
     public class NotesService : INotesService
@@ -32,16 +32,16 @@
             return await _notesRepository.AddNote(note).ConfigureAwait(false);
         }
 
-        public async Task DeleteNote(Guid noteId)
+        public async Task DeleteNote(string noteId)
         {
             _logger.LogInformation($"Delete note with noteId: '{noteId}' requested.");
 
             await _notesRepository.DeleteNote(noteId).ConfigureAwait(false);
         }
 
-        public async Task<Note> GetNote(Guid noteId)
+        public async Task<Note> GetNote(string noteId)
         {
-            _logger.LogInformation("Get note requested.");
+            _logger.LogInformation($"Get note requested for noteId: '{noteId}'.");
 
             return await _notesRepository.GetNote(noteId).ConfigureAwait(false);
         }

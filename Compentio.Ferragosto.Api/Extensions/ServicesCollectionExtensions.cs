@@ -10,6 +10,7 @@
         {            
             services.AddHealthChecks();
 
+
             // add new services below 
             services.AddTransient<INotesService, NotesService>();
         }
