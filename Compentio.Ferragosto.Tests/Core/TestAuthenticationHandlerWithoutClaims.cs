@@ -19,5 +19,5 @@
         {
             new Claim(ClaimTypes.Name, "Test user")
         };
-}
+    }
 }
