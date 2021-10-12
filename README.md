@@ -1,8 +1,12 @@
 # Compentio.Ferragosto.Notes
 
-This is .NET 5 template for Microservice with Azure Active Dicrectory authorization, MongoDB database used.
+This is .NET 5 template for Microservice with Azure Active Dicrectory authorization and MongoDB underneath.
 
-# Libraries used 
+![GitHub top language](https://img.shields.io/github/languages/top/alekshura/Compentio.Ferragosto.Notes)
+![GitHub contributors](https://img.shields.io/github/contributors/alekshura/Compentio.Ferragosto.Notes)
+
+
+# Libraries 
 ## API
 - Swagger - Swashbuckle.AspNetCore
 - Logging: Application Insights provider: Azure monitor and Application Insights in code: https://docs.microsoft.com/en-us/azure/azure-monitor/app/ilogger
